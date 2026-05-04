@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CodeDone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mode-ambient" aria-hidden="true"></div>
+    <div id="app">
+
+        <!-- Titlebar (frameless drag region) -->
+        <div class="titlebar">
+            <div class="titlebar-left">
+                <div class="app-logo">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8b5cf6"/>
+                                <stop offset="50%" style="stop-color:#5e5ce6"/>
+                                <stop offset="100%" style="stop-color:#3b82f6"/>
+                            </linearGradient>
+                        </defs>
+                        <polyline points="4 17 10 11 4 5" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <line x1="12" y1="19" x2="20" y2="19" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="app-name">CodeDone</span>
+                <span class="app-version">v0.1.0</span>
+            </div>
+
+            <div class="titlebar-center">
+                <div class="session-status" id="sessionStatus">
+                    <span class="status-dot idle" id="statusDot"></span>
+                    <span class="status-label" id="statusLabel">Idle</span>
+                </div>
+            </div>
+
+            <div class="titlebar-right">
+                <div class="backlog-trigger-wrap">
+                    <button class="titlebar-btn" id="backlogBtn" title="Backlog">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="5" width="18" height="4" rx="1"/>
+                            <rect x="3" y="11" width="18" height="4" rx="1"/>
+                            <rect x="3" y="17" width="18" height="4" rx="1"/>
+                        </svg>
+                    </button>
+                    <span class="backlog-trigger-badge hidden" id="backlogBadge"></span>
+                </div>
+                <div class="titlebar-sep"></div>
+                <button class="titlebar-btn" id="settingsBtn" title="Settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </button>
+                <div class="titlebar-sep"></div>
+                <button class="titlebar-btn new-session-btn" id="newSessionBtn" title="New session">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                    </svg>
+                </button>
+                <div class="titlebar-sep"></div>
+                <button class="titlebar-btn minimize-btn" id="minimizeBtn" title="Minimize">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                </button>
+                <button class="titlebar-btn close-btn" id="closeBtn" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main output area -->
+        <div class="main-area" id="mainArea">
+
+            <!-- Empty state -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <img src="/codedone-final-logo.png" alt="CodeDone" />
+                </div>
+                <h2 class="empty-title" id="emptyTitle">Ready to plan</h2>
+                <p class="empty-sub" id="emptySub">Ask the Contre-Maitre to inspect the repo, reason through options, and answer without dispatching work.</p>
+                <div class="empty-hints">
+                    <div class="hint-chip">
+                        <span class="hint-key">Enter</span>
+                        <span>Start session</span>
+                    </div>
+                    <div class="hint-chip">
+                        <span class="hint-key">Shift+Enter</span>
+                        <span>New line</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages list -->
+            <div class="messages-list" id="messagesList"></div>
+
+        </div>
+
+        <!-- Live activity strip — shows what the active model is doing right now -->
+        <div class="activity-strip is-hidden" id="activityStrip" aria-hidden="true">
+            <div class="activity-strip-glow"></div>
+            <div class="activity-strip-inner">
+                <div class="activity-pulse">
+                    <span class="activity-pulse-dot"></span>
+                    <span class="activity-pulse-ring"></span>
+                </div>
+                <div class="activity-actor" id="activityActor">Agents</div>
+                <div class="activity-divider">·</div>
+                <div class="activity-detail" id="activityDetail">
+                    <svg class="activity-detail-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M8 5v3l2 1"/>
+                    </svg>
+                    <span class="activity-detail-text" id="activityDetailText">Spinning up</span>
+                </div>
+                <div class="activity-tools" id="activityTools" aria-live="polite"></div>
+                <div class="activity-spacer"></div>
+                <div class="activity-clock" id="activityClock" title="Elapsed since session start">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M8 5v3l2 1"/>
+                    </svg>
+                    <span class="activity-clock-text" id="activityClockText">0:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input bar -->
+        <div class="input-bar" id="inputBar">
+            <div class="mode-tabs" id="modeSwitch" aria-label="Session mode">
+                <button class="mode-tab active" id="modePlan" data-mode="plan" title="Talk with one Contre-Maitre only">Plan</button>
+                <button class="mode-tab" id="modeBuild" data-mode="build" title="Plan, ticket, and dispatch implementers">Build</button>
+                <div class="mode-tab-bar" aria-hidden="true"></div>
+            </div>
+            <div class="input-prompt">
+                <span class="prompt-sigil">›</span>
+                <textarea
+                    id="taskInput"
+                    class="task-input"
+                    placeholder="Ask the Contre-Maitre to inspect and plan..."
+                    rows="1"
+                    spellcheck="false"
+                    autocomplete="off"
+                ></textarea>
+            </div>
+            <button class="send-btn" id="sendBtn" title="Start session (Enter)" data-mode="send">
+                <span class="send-btn-icons">
+                    <!-- Send: arrow (stroke), matches the existing icon language -->
+                    <svg class="send-btn-icon icon-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="19" x2="12" y2="5"/>
+                        <polyline points="5 12 12 5 19 12"/>
+                    </svg>
+                    <!-- Pause: two filled rounded bars (FontAwesome solid pause vibe) -->
+                    <svg class="send-btn-icon icon-pause" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                        <rect x="6" y="4"  width="4.5" height="16" rx="1.3"/>
+                        <rect x="13.5" y="4" width="4.5" height="16" rx="1.3"/>
+                    </svg>
+                    <!-- Resume: filled triangle. The bounding box is offset
+                         from the visual centroid of a right-pointing triangle,
+                         so the path is nudged right with translate(1.4 0) to
+                         sit optically centered inside the button. -->
+                    <svg class="send-btn-icon icon-resume" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                        <path transform="translate(1.4 0)" d="M6.5 4.5 L18 12 L6.5 19.5 Z" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="input-workdir" id="inputWorkdir">
+                <svg viewBox="0 0 20 20" fill="currentColor" stroke="none" aria-hidden="true">
+                    <path d="M2 6a2 2 0 0 1 2-2h5l2 2h5a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6z"/>
+                </svg>
+                <span id="workdirLabel">~/</span>
+            </div>
+        </div>
+
+        <!-- Status bar -->
+        <div class="status-bar">
+            <div class="status-bar-left">
+                <span class="status-item" id="branchLabel">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <circle cx="4" cy="4" r="1.5"/>
+                        <circle cx="4" cy="12" r="1.5"/>
+                        <circle cx="12" cy="4" r="1.5"/>
+                        <path d="M4 5.5v5M5.5 4h3a3 3 0 0 1 3 3v1.5"/>
+                    </svg>
+                    no branch
+                </span>
+                <span class="status-item status-divider">·</span>
+                <span class="status-item status-path" id="pathLabel">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <path d="M1 3h4l1 2h9v8H1z"/>
+                    </svg>
+                    ~/
+                </span>
+            </div>
+            <div class="status-bar-right">
+                <span class="status-item" id="providerLabel">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M8 5v6M5 8h6"/>
+                    </svg>
+                    deepseek
+                </span>
+                <span class="status-item status-divider">·</span>
+                <span class="status-item" id="modelLabel">deepseek-v4-flash</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Settings overlay -->
+    <div class="settings-overlay hidden" id="settingsOverlay">
+        <div class="settings-panel">
+
+            <!-- Ambient glow orbs (x22 AI panel style) -->
+            <div class="settings-glow-a"></div>
+            <div class="settings-glow-b"></div>
+
+            <!-- Sidebar -->
+            <nav class="settings-sidebar">
+                <div class="settings-sidebar-brand">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M8 5v6M5 8h6"/>
+                    </svg>
+                    Settings
+                </div>
+                <button class="settings-tab-btn active" data-tab="agents">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <circle cx="8" cy="5" r="2.5"/>
+                        <path d="M2 14c0-3.31 2.69-5 6-5s6 1.69 6 5"/>
+                        <circle cx="13" cy="5" r="1.5"/>
+                        <path d="M15 13c0-2-.8-3.5-2-4"/>
+                    </svg>
+                    Agents
+                </button>
+                <button class="settings-tab-btn" data-tab="git">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <circle cx="4" cy="4" r="1.5"/>
+                        <circle cx="4" cy="12" r="1.5"/>
+                        <circle cx="12" cy="4" r="1.5"/>
+                        <path d="M4 5.5v5M5.5 4h3a3 3 0 0 1 3 3v1.5"/>
+                    </svg>
+                    Git
+                </button>
+                <button class="settings-tab-btn" data-tab="console">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <rect x="1" y="2" width="14" height="12" rx="2"/>
+                        <path d="M4 6l3 3-3 3M9 12h3"/>
+                    </svg>
+                    Console
+                </button>
+            </nav>
+
+            <!-- Content -->
+            <div class="settings-content">
+                <div class="settings-content-header">
+                    <span class="settings-content-title" id="settingsTabTitle">Agents</span>
+                    <div class="settings-unsaved-badge hidden" id="settingsUnsavedBadge">
+                        <span class="unsaved-dot"></span>
+                        <span>Unsaved changes</span>
+                    </div>
+                    <button class="settings-close-btn" id="settingsClose">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="settings-body">
+
+                    <!-- ── Tab: Agents ── -->
+                    <div class="settings-pane active" id="tab-agents">
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Connection</div>
+                            <div class="settings-row">
+                                <div class="settings-group half">
+                                    <label class="settings-label">Provider</label>
+                                    <select class="settings-select" id="providerSelect">
+                                        <option value="deepseek">DeepSeek</option>
+                                        <option value="anthropic">Anthropic</option>
+                                        <option value="openai">OpenAI</option>
+                                        <option value="openrouter">OpenRouter</option>
+                                    </select>
+                                </div>
+                                <div class="settings-group half">
+                                    <label class="settings-label">API Key</label>
+                                    <input class="settings-input" id="apiKeyInput" type="password" placeholder="sk-..." />
+                                    <span class="settings-hint">Stored locally in the app config.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Models</div>
+                            <div class="settings-row">
+                                <div class="settings-group half">
+                                    <label class="settings-label">
+                                        Contre-Maitre model
+                                        <span class="ctx-badge hidden" id="cmCtxBadge"></span>
+                                    </label>
+                                    <input class="settings-input" id="cmModelInput" type="text" placeholder="gpt-5.4 or deepseek-v4-pro" />
+                                    <span class="settings-hint">Plan mode, directives, backlog planning, and reviews.</span>
+                                </div>
+                                <div class="settings-group half">
+                                    <label class="settings-label">
+                                        Implementer model
+                                        <span class="ctx-badge hidden" id="implCtxBadge"></span>
+                                    </label>
+                                    <input class="settings-input" id="implementerModelInput" type="text" placeholder="gpt-5.4-mini or deepseek-v4-flash" />
+                                    <span class="settings-hint">Code-writing implementer passes.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Roster</div>
+                            <div class="settings-group">
+                                <label class="settings-label">Contre-Maître agents</label>
+                                <div class="settings-radio-group" id="cmCountGroup" data-cm-level="1">
+                                    <label class="settings-radio"><input type="radio" name="cmCount" value="1" id="cmCount1" /><span>1</span></label>
+                                    <label class="settings-radio"><input type="radio" name="cmCount" value="2" id="cmCount2" /><span>2</span></label>
+                                    <label class="settings-radio"><input type="radio" name="cmCount" value="3" id="cmCount3" /><span>3</span></label>
+                                    <label class="settings-radio"><input type="radio" name="cmCount" value="4" id="cmCount4" /><span>4</span></label>
+                                    <label class="settings-radio"><input type="radio" name="cmCount" value="5" id="cmCount5" /><span>5</span></label>
+                                </div>
+                                <div class="cm-charge-wrap">
+                                    <div class="cm-charge-bar"></div>
+                                </div>
+                                <span class="settings-hint">Build mode uses these CMs for planning and review. Plan mode always uses one CM.</span>
+                            </div>
+                            <div class="settings-row">
+                                <div class="settings-group half">
+                                    <label class="settings-label">Implementer slots</label>
+                                    <input class="settings-input" id="maxAgents" type="number" min="1" max="99" placeholder="4" />
+                                    <span class="settings-hint">Number of implementer profiles available for ticket assignment.</span>
+                                </div>
+                                <div class="settings-group half">
+                                    <label class="settings-label">Agent timeout (s)</label>
+                                    <input class="settings-input" id="agentTimeout" type="number" min="10" max="3600" placeholder="1200" />
+                                    <span class="settings-hint">Timeout for each model call.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Generation</div>
+                            <div class="settings-row">
+                                <div class="settings-group">
+                                    <label class="settings-label">Max output tokens</label>
+                                    <input class="settings-input" id="maxTokens" type="number" min="256" max="384000" placeholder="8192" />
+                                    <span class="settings-hint">Upper limit for each model response. DeepSeek V4 allows up to 384K.</span>
+                                </div>
+                            </div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Override temperature</div>
+                                    <div class="settings-toggle-sub">Off uses the provider's default temperature for the selected model.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="enableTemperature" />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                            <div class="settings-group">
+                                <label class="settings-label">Temperature <span class="settings-range-val" id="tempVal">Provider default</span></label>
+                                <input class="settings-range" id="temperature" type="range" min="0" max="1" step="0.05" value="0.3" disabled />
+                                <div class="settings-range-labels"><span>Precise</span><span>Creative</span></div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Build completion</div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Enable Finalizer agent</div>
+                                    <div class="settings-toggle-sub">Runs tests and validates the build at the end of every session.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="enableFinalizer" checked />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ── Tab: Git ── -->
+                    <div class="settings-pane hidden" id="tab-git">
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Repository</div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Auto-create branch</div>
+                                    <div class="settings-toggle-sub">Creates a <code>codedone/work-*</code> branch when a build session starts.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="autoCreateBranch" checked />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Require clean working tree</div>
+                                    <div class="settings-toggle-sub">Block session start if there are uncommitted changes.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="requireCleanTree" />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Auto-stage & commit</div>
+                                    <div class="settings-toggle-sub">Stages and commits all build changes at session end. Disable to leave changes uncommitted.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="autoCommit" checked />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Configuration</div>
+                            <div class="settings-group">
+                                <label class="settings-label">Branch prefix</label>
+                                <input class="settings-input" id="branchPrefix" type="text" placeholder="codedone/work-" />
+                            </div>
+                            <div class="settings-group">
+                                <label class="settings-label">Git executable path</label>
+                                <input class="settings-input" id="gitPath" type="text" placeholder="git" />
+                                <span class="settings-hint">Leave blank to use git from PATH.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ── Tab: Console ── -->
+                    <div class="settings-pane hidden" id="tab-console">
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Appearance</div>
+                            <div class="theme-cards" id="themeCards">
+                                <button class="theme-card active" data-theme-val="dark">
+                                    <div class="theme-card-preview">
+                                        <div class="tcp-bar"></div>
+                                        <div class="tcp-msg tcp-msg-a"></div>
+                                        <div class="tcp-msg tcp-msg-b"></div>
+                                    </div>
+                                    <div class="theme-card-label">
+                                        <span class="theme-card-name">Dark</span>
+                                        <span class="theme-card-check">
+                                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="1.5 6 4.5 9.5 10.5 2.5"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </button>
+                                <button class="theme-card" data-theme-val="classy">
+                                    <div class="theme-card-preview">
+                                        <div class="tcp-bar"></div>
+                                        <div class="tcp-msg tcp-msg-a"></div>
+                                        <div class="tcp-msg tcp-msg-b"></div>
+                                    </div>
+                                    <div class="theme-card-label">
+                                        <span class="theme-card-name">Classy</span>
+                                        <span class="theme-card-check">
+                                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="1.5 6 4.5 9.5 10.5 2.5"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <div class="settings-section-label">Output</div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Show timestamps</div>
+                                    <div class="settings-toggle-sub">Display time next to each agent message.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="showTimestamps" checked />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                            <div class="settings-toggle-row">
+                                <div>
+                                    <div class="settings-toggle-label">Auto-scroll</div>
+                                    <div class="settings-toggle-sub">Follow output as it arrives.</div>
+                                </div>
+                                <label class="settings-switch">
+                                    <input type="checkbox" id="autoScroll" checked />
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!-- /settings-body -->
+
+                <div class="settings-footer">
+                    <span class="settings-footer-hint">Ctrl+, to open &nbsp;·&nbsp; Esc to close</span>
+                    <button class="settings-save-btn" id="settingsSave">
+                        <span class="save-btn-icon">
+                            <!-- idle: floppy -->
+                            <svg class="save-icon-idle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M13 14H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h8l2 2v9a1 1 0 0 1-1 1z"/>
+                                <path d="M5 14V9h6v5M5 2v4h5"/>
+                            </svg>
+                            <!-- loading: spinner -->
+                            <svg class="save-icon-loading" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                                <path d="M8 2a6 6 0 1 0 6 6"/>
+                            </svg>
+                            <!-- success: checkmark -->
+                            <svg class="save-icon-success" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="2.5 8.5 6.5 12.5 13.5 4.5"/>
+                            </svg>
+                        </span>
+                        <span class="save-btn-label">Save changes</span>
+                    </button>
+                </div>
+
+            </div><!-- /settings-content -->
+        </div><!-- /settings-panel -->
+    </div>
+
+    <!-- Questions overlay -->
+    <div class="questions-overlay hidden" id="questionsOverlay">
+        <div class="questions-panel">
+            <div class="questions-glow-a"></div>
+            <div class="questions-glow-b"></div>
+
+            <header class="questions-header">
+                <div class="questions-header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M9.5 9a2.5 2.5 0 0 1 4.9 0c0 1.6-2.4 1.9-2.4 3.6"/>
+                        <line x1="12" y1="16.5" x2="12" y2="16.51"/>
+                    </svg>
+                </div>
+                <div class="questions-header-text">
+                    <div class="questions-header-eyebrow">
+                        <span class="questions-header-pill">Contre-Maître</span>
+                        <span class="questions-header-divider">·</span>
+                        <span>Clarification needed</span>
+                    </div>
+                    <h2 class="questions-header-title" id="questionsHeaderTitle">A few questions before planning continues</h2>
+                    <p class="questions-header-sub" id="questionsHeaderSub"></p>
+                </div>
+            </header>
+
+            <div class="questions-body" id="questionsBody"></div>
+
+            <footer class="questions-footer">
+                <span class="questions-footer-hint">
+                    <span class="kbd">⌘</span><span class="kbd">↵</span> submit
+                    &nbsp;·&nbsp;
+                    <span class="kbd">Esc</span> later
+                </span>
+                <button class="questions-submit-btn" id="questionsSubmit">
+                    <span class="qsubmit-icon">
+                        <svg class="qsubmit-icon-idle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="8" x2="13" y2="8"/>
+                            <polyline points="9 4 13 8 9 12"/>
+                        </svg>
+                        <svg class="qsubmit-icon-loading" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M8 2a6 6 0 1 0 6 6"/>
+                        </svg>
+                        <svg class="qsubmit-icon-success" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="2.5 8.5 6.5 12.5 13.5 4.5"/>
+                        </svg>
+                    </span>
+                    <span class="qsubmit-label">Submit answers</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Backlog panel -->
+    <div class="backlog-overlay hidden" id="backlogOverlay">
+        <div class="backlog-panel" id="backlogPanel">
+            <div class="backlog-glow-a"></div>
+            <div class="backlog-glow-b"></div>
+            <header class="backlog-header">
+                <div class="backlog-header-left">
+                    <svg class="backlog-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="4" rx="1"/>
+                        <rect x="3" y="11" width="18" height="4" rx="1"/>
+                        <rect x="3" y="17" width="18" height="4" rx="1"/>
+                    </svg>
+                    <span class="backlog-header-title">Backlog</span>
+                    <span class="backlog-header-count" id="backlogHeaderCount"></span>
+                </div>
+                <button class="backlog-close-btn" id="backlogClose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </header>
+            <div class="backlog-body" id="backlogBody">
+                <div class="backlog-empty-state" id="backlogEmpty">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="4" rx="1"/><rect x="3" y="11" width="18" height="4" rx="1"/><rect x="3" y="17" width="18" height="4" rx="1"/>
+                    </svg>
+                    <span>No backlog yet</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>document.addEventListener('contextmenu', e => e.preventDefault());</script>
+    <script src="vendor/marked.umd.js"></script>
+    <script src="wailsjs/runtime/runtime.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

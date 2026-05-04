@@ -1,0 +1,10 @@
+/.gocache
+/.npmcache
+/build/bin
+codedone.config.json
+codedone.config
+
+# Next.js front-end — build artifacts and dependencies
+/codedone.app/front-end/.next/
+/codedone.app/front-end/node_modules/
+/codedone.app/front-end/next-env.d.ts

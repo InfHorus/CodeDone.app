@@ -1,0 +1,9 @@
+{
+  "model": "deepseek-v4-flash",
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Return exactly: {\"ok\":true}"}
+  ],
+  "thinking": {"type": "disabled"},
+  "stream": false
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "CodeDone",
+  "outputfilename": "CodeDone",
+  "frontend:install": "",
+  "frontend:build": "",
+  "author": {
+    "name": "InfHorus",
+    "email": ""
+  },
+  "info": {
+    "companyName": "",
+    "productName": "CodeDone",
+    "productVersion": "0.1.0",
+    "copyright": "",
+    "comments": "Open source agentic coding tool with serialized agent execution"
+  },
+  "windows": {
+    "wailsjsdir": "./frontend/dist",
+    "requestedExecutionLevel": "asInvoker",
+    "consoleType": "normal"
+  }
+}

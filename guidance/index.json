@@ -1,0 +1,393 @@
+[
+  {
+    "id": "web",
+    "title": "Web",
+    "tags": [
+      "frontend",
+      "web",
+      "ui",
+      "ux",
+      "design",
+      "html",
+      "css",
+      "react",
+      "tailwind",
+      "premium"
+    ],
+    "summary": "Production-grade web design guidance for distinctive, polished interfaces. Use for visual direction, layout, typography, color, motion, component polish, accessibility, and anti-generic AI design rules.",
+    "file": "web.md",
+    "use_when": [
+      "Building or redesigning a website, landing page, dashboard, app screen, component, marketing page, admin UI, or design system.",
+      "Improving frontend polish, visual hierarchy, layout, typography, motion, responsiveness, or perceived product quality.",
+      "Do not use for general JS/TS implementation unless the task explicitly involves visual design or UI quality."
+    ]
+  },
+  {
+    "id": "typescript-js",
+    "title": "TypeScript + JavaScript",
+    "tags": [
+      "typescript",
+      "javascript",
+      "node",
+      "react",
+      "nextjs",
+      "vite",
+      "frontend",
+      "backend",
+      "package-json",
+      "web-app"
+    ],
+    "summary": "Practical TypeScript/JavaScript engineering guidance for React, Next.js, Node.js, Vite, APIs, packages, and app code. Focuses on type safety, framework boundaries, async correctness, package discipline, verification, and common AI coding mistakes.",
+    "file": "typescript-js.md",
+    "use_when": [
+      "Use only when the repository or task involves package.json, tsconfig/jsconfig, .ts/.tsx/.js/.jsx files, Node.js, React, Next.js, Vite, or common JS/TS frameworks and tooling.",
+      "Use for implementation, bug fixes, refactors, tests, API handlers, frontend behavior, build tooling, package work, or TypeScript errors in JS/TS projects.",
+      "Do not use merely because the task is web-related; use the Web skill only when the task requires visual design, layout polish, UI aesthetics, or premium frontend presentation."
+    ]
+  },
+  {
+    "id": "python",
+    "title": "Python",
+    "tags": [
+      "python",
+      "pyproject",
+      "fastapi",
+      "flask",
+      "django",
+      "api",
+      "automation",
+      "cli",
+      "ai",
+      "ml",
+      "pytorch",
+      "tensorflow",
+      "pandas",
+      "numpy",
+      "pygame",
+      "blender",
+      "data"
+    ],
+    "summary": "Practical Python engineering guidance for APIs, automation, AI/ML, data scripts, CLIs, async services, and 2D/3D game/tool prototypes. Focuses on environment discipline, validation, model-loading patterns, async correctness, safe file/process handling, and common AI coding mistakes.",
+    "file": "python.md",
+    "use_when": [
+      "Use only when the repository or task involves .py/.pyi/.ipynb files, pyproject.toml, requirements.txt, uv/poetry/pip/conda files, Python APIs, scripts, automation, data/ML pipelines, or Python game/tool code.",
+      "Use for implementation, bug fixes, refactors, tests, packaging, FastAPI/Flask/Django endpoints, AI/ML inference/training code, pandas/NumPy data work, CLIs, async services, pygame/arcade/pyglet/Panda3D/Ursina/Blender Python work.",
+      "Do not use for non-Python repos merely because Python exists in tooling, CI, or generated scripts; use only when Python code or Python runtime behavior is part of the task."
+    ]
+  },
+  {
+    "id": "cpp-native",
+    "title": "C / C++ Native",
+    "tags": [
+      "c",
+      "cpp",
+      "c++",
+      "native",
+      "cmake",
+      "make",
+      "gcc",
+      "clang",
+      "msvc",
+      "systems",
+      "embedded",
+      "engine",
+      "game-engine",
+      "performance",
+      "linker",
+      "abi"
+    ],
+    "summary": "Practical C/C++ native engineering guidance for CMake/Make/MSVC/Clang/GCC projects, low-level libraries, engine/plugin code, memory ownership, headers, linking, ABI, concurrency, performance, and native security pitfalls.",
+    "file": "cpp-native.md",
+    "use_when": [
+      "Use only when the repository or task involves .c/.h/.cpp/.hpp/.cc/.cxx files, CMakeLists.txt, Makefile, Meson/Bazel/Premake, native libraries, compiler/linker errors, engine modules, plugins, FFI/bindings, or low-level/performance-sensitive native code.",
+      "Use for C/C++ implementation, bug fixes, refactors, build-system fixes, memory/lifetime issues, header/API work, linker errors, ABI/platform issues, native game/engine code, and security-sensitive parsers or file/network handling.",
+      "Do not use for C#/.NET projects; use csharp-dotnet when the task involves .cs, .csproj, .sln managed code, ASP.NET, Unity C#, NuGet, or .NET runtime behavior."
+    ]
+  },
+  {
+    "id": "csharp-dotnet",
+    "title": "C# / .NET",
+    "tags": [
+      "csharp",
+      "c#",
+      "dotnet",
+      ".net",
+      "aspnet",
+      "asp.net",
+      "entity-framework",
+      "ef-core",
+      "nuget",
+      "msbuild",
+      "unity",
+      "maui",
+      "wpf",
+      "winforms",
+      "blazor",
+      "linq"
+    ],
+    "summary": "Practical C#/.NET engineering guidance for ASP.NET Core, EF Core, NuGet/MSBuild, async/await, nullable reference types, DI, Unity C#, desktop apps, libraries, APIs, testing, and common managed-code mistakes.",
+    "file": "csharp-dotnet.md",
+    "use_when": [
+      "Use only when the repository or task involves .cs files, .csproj/.sln, Program.cs/Startup.cs, appsettings.json, ASP.NET Core, Entity Framework, NuGet, MSBuild, Unity C# scripts, MAUI, WPF, WinForms, Blazor, or .NET services/libraries.",
+      "Use for C# implementation, bug fixes, refactors, API handlers, EF queries/migrations, async/await behavior, DI registration, package/project-file changes, Unity gameplay scripts, desktop app code, and .NET test/build issues.",
+      "Do not use for native C/C++ work; use cpp-native when the task involves .c/.cpp/.h/.hpp files, CMake, compiler/linker errors, native libraries, or ABI/platform issues."
+    ]
+  },
+  {
+    "id": "sql-database",
+    "title": "SQL / Database",
+    "tags": [
+      "sql",
+      "database",
+      "postgresql",
+      "mysql",
+      "mariadb",
+      "sqlite",
+      "sqlserver",
+      "schema",
+      "migration",
+      "orm",
+      "prisma",
+      "drizzle",
+      "typeorm",
+      "sequelize",
+      "sqlalchemy",
+      "alembic",
+      "ef-core",
+      "laravel",
+      "indexes",
+      "transactions"
+    ],
+    "summary": "Practical SQL/database guidance for schemas, migrations, queries, indexes, transactions, ORM pitfalls, tenant scoping, pagination, and durable data changes. Focuses on safe persistence work and common agent mistakes around data access.",
+    "file": "sql-database.md",
+    "use_when": [
+      "Use only when the task touches .sql files, migrations, schemas, database models, ORM queries, indexes, transactions, data integrity, query performance, pagination, or persistent application data behavior.",
+      "Use for PostgreSQL, MySQL/MariaDB, SQLite, SQL Server, Prisma, Drizzle, TypeORM, Sequelize, Knex, SQLAlchemy, Alembic, Django ORM, Laravel migrations/Eloquent, EF Core migrations/LINQ queries, or similar database work.",
+      "Do not use for generic backend changes merely because the app has a database dependency; activate only when database structure, queries, data access, or persistence semantics are part of the work."
+    ]
+  },
+  {
+    "id": "shell-devops",
+    "title": "Shell / DevOps",
+    "tags": [
+      "shell",
+      "bash",
+      "zsh",
+      "powershell",
+      "docker",
+      "docker-compose",
+      "systemd",
+      "nginx",
+      "apache",
+      "ci",
+      "github-actions",
+      "deployment",
+      "linux",
+      "ssh",
+      "scp",
+      "logs",
+      "ports",
+      "permissions",
+      "env"
+    ],
+    "summary": "Practical shell and DevOps guidance for scripts, Docker, systemd, reverse proxies, CI/CD, environment variables, secrets, logs, permissions, ports, and deployment/runtime debugging. Focuses on safe operational changes and verification.",
+    "file": "shell-devops.md",
+    "use_when": [
+      "Use only when the task touches .sh/.bash/.zsh/.ps1 scripts, Dockerfile, docker-compose.yml, CI config, GitHub Actions, systemd units, Nginx/Apache configs, deployment scripts, cron jobs, SSH/SCP, Linux services, ports, logs, permissions, or environment variables.",
+      "Use for runtime/deployment failures, service startup, reverse proxy/TLS issues, containerization, CI failures, production config, shell automation, and operational verification commands.",
+      "Do not use for normal application implementation unless the current issue is deployment, runtime, shell, infrastructure, or tooling related."
+    ]
+  },
+  {
+    "id": "java-kotlin",
+    "title": "Java / Kotlin",
+    "tags": [
+      "java",
+      "kotlin",
+      "jvm",
+      "spring",
+      "spring-boot",
+      "maven",
+      "gradle",
+      "android",
+      "jpa",
+      "hibernate",
+      "junit",
+      "mockito",
+      "coroutines",
+      "rest-api",
+      "backend"
+    ],
+    "summary": "Practical Java/Kotlin JVM guidance for Spring Boot, Android, Maven/Gradle, JPA/Hibernate, REST APIs, dependency injection, nullability, coroutines, testing, and common JVM agent mistakes.",
+    "file": "java-kotlin.md",
+    "use_when": [
+      "Use only when the repository or task involves .java/.kt/.kts files, pom.xml, build.gradle/build.gradle.kts, Gradle/Maven wrappers, Spring Boot, Android, JPA/Hibernate, JVM tests, or JVM stack traces/build errors.",
+      "Use for Java/Kotlin implementation, bug fixes, API handlers, services/repositories, DTO/entity mapping, build/dependency work, coroutine/reactive behavior, Android lifecycle code, and JVM tests.",
+      "Do not use for C#/.NET despite syntax similarities, and do not use for JavaScript/TypeScript even if the project uses Gradle/Vite tooling nearby."
+    ]
+  },
+  {
+    "id": "go",
+    "title": "Go",
+    "tags": [
+      "go",
+      "golang",
+      "go-mod",
+      "http",
+      "grpc",
+      "cli",
+      "goroutine",
+      "channel",
+      "context",
+      "database-sql",
+      "gin",
+      "fiber",
+      "chi",
+      "echo",
+      "cobra",
+      "race-detector"
+    ],
+    "summary": "Practical Go engineering guidance for modules, HTTP services, CLIs, context propagation, explicit error handling, goroutines/channels, database/sql, testing, formatting, and common Go agent mistakes.",
+    "file": "go.md",
+    "use_when": [
+      "Use only when the repository or task involves .go files, go.mod/go.sum/go.work, Go tests, Go CLI/server code, gRPC, Gin/Fiber/Chi/Echo, Cobra, database/sql, goroutines/channels, race conditions, or Go build/runtime errors.",
+      "Use for Go implementation, bug fixes, refactors, HTTP APIs, database access, concurrency, module/dependency changes, CLI tools, tests, formatting, and build issues.",
+      "Do not use for non-Go projects with unrelated Docker/tooling files, or when the word 'go' is only natural-language wording."
+    ]
+  },
+  {
+    "id": "php-laravel",
+    "title": "PHP / Laravel",
+    "tags": [
+      "php",
+      "laravel",
+      "composer",
+      "wordpress",
+      "blade",
+      "eloquent",
+      "pdo",
+      "mysql",
+      "apache",
+      "htaccess",
+      "public_html",
+      "php-fpm",
+      "sessions",
+      "artisan",
+      "queues"
+    ],
+    "summary": "Practical PHP/Laravel guidance for raw PHP, Composer, Laravel, Eloquent, migrations, sessions/auth, PDO, Blade, WordPress-aware work, public_html hosting, Apache/PHP runtime issues, and common PHP security mistakes.",
+    "file": "php-laravel.md",
+    "use_when": [
+      "Use only when the repository or task involves .php files, composer.json/composer.lock, artisan, Laravel apps, WordPress plugin/theme files, Blade templates, PHP sessions/auth, PDO/MySQL, Apache .htaccess, public_html deployments, PHP-FPM, or PHP runtime errors.",
+      "Use for PHP/Laravel implementation, bug fixes, routes/controllers, validation, Eloquent queries, migrations, queues, Composer changes, file uploads, sessions, WordPress-aware code, and PHP hosting issues.",
+      "Do not use for JavaScript/CSS inside a PHP project unless PHP/backend behavior is part of the task."
+    ]
+  },
+  {
+    "id": "godot",
+    "title": "Godot",
+    "tags": [
+      "godot",
+      "gdscript",
+      "godot-csharp",
+      "game-dev",
+      "2d",
+      "3d",
+      "scene-tree",
+      "nodes",
+      "signals",
+      "resources",
+      "physics",
+      "multiplayer",
+      "export"
+    ],
+    "summary": "Practical Godot guidance for GDScript/C# projects, scenes/nodes/resources, 2D/3D gameplay, physics, UI, multiplayer, exports, performance, and common Godot agent mistakes.",
+    "file": "godot.md",
+    "use_when": [
+      "Use only when the repository or task involves project.godot, .gd, .tscn, .tres, .res, Godot C# scripts, scenes, nodes, resources, signals, exports, physics, multiplayer, or Godot engine/runtime errors.",
+      "Use for Godot gameplay implementation, UI, scene architecture, input, physics, resource/data patterns, multiplayer authority/sync, performance, export/build issues, and GDScript/C# engine-specific fixes.",
+      "Do not use for generic game design without Godot implementation, or for Unity/Unreal projects."
+    ]
+  },
+  {
+    "id": "unity",
+    "title": "Unity",
+    "tags": [
+      "unity",
+      "csharp",
+      "game-dev",
+      "monobehaviour",
+      "prefab",
+      "scene",
+      "scriptableobject",
+      "physics",
+      "ui",
+      "netcode",
+      "urp",
+      "hdrp",
+      "editor-tools"
+    ],
+    "summary": "Practical Unity guidance for C# gameplay, MonoBehaviour lifecycle, prefabs/scenes, ScriptableObjects, physics, UI, packages, networking, editor tooling, performance, and common Unity agent mistakes.",
+    "file": "unity.md",
+    "use_when": [
+      "Use only when the repository or task involves Unity project files such as Assets/, ProjectSettings/, Packages/manifest.json, .unity, .prefab, .asmdef, MonoBehaviour, ScriptableObject, Unity C# scripts, editor tooling, physics, UI, packages, or Unity build/runtime errors.",
+      "Use for Unity gameplay implementation, lifecycle bugs, prefab-safe C# changes, serialized fields, ScriptableObjects, physics/input/UI, networking authority, packages, editor tools, performance, and build issues.",
+      "Do not use for ordinary C#/.NET work unless Unity engine behavior is part of the task; use csharp-dotnet for non-Unity managed code."
+    ]
+  },
+  {
+    "id": "unreal-engine",
+    "title": "Unreal Engine",
+    "tags": [
+      "unreal",
+      "unreal-engine",
+      "ue",
+      "ue5",
+      "cpp",
+      "blueprint",
+      "uobject",
+      "actor",
+      "component",
+      "replication",
+      "umg",
+      "slate",
+      "build-cs",
+      "game-dev"
+    ],
+    "summary": "Practical Unreal Engine guidance for C++/Blueprint projects, actors/components, reflection macros, modules/build files, networking/replication, input, UI, assets, performance, and common Unreal agent mistakes.",
+    "file": "unreal-engine.md",
+    "use_when": [
+      "Use only when the repository or task involves .uproject, .uplugin, Source/, .Build.cs, .Target.cs, UCLASS/USTRUCT/UPROPERTY/UFUNCTION, Blueprints, Actors, Components, replication, Gameplay Ability System, UMG/Slate, packaging, or Unreal build/runtime/editor errors.",
+      "Use for Unreal gameplay implementation, C++/Blueprint interoperability, UObject lifetime/GC, reflected APIs, module dependencies, replication, input, UI, assets, performance, and packaging issues.",
+      "Do not use for generic C++ unless Unreal engine APIs or project structure are involved; use cpp-native for non-Unreal native code."
+    ]
+  },
+  {
+    "id": "cybersecurity",
+    "title": "Cybersecurity",
+    "tags": [
+      "security",
+      "cybersecurity",
+      "secure-code-review",
+      "threat-modeling",
+      "vulnerability",
+      "cve",
+      "owasp",
+      "cwe",
+      "auth",
+      "ssrf",
+      "sqli",
+      "xss",
+      "secrets",
+      "dependency-scanning",
+      "hardening"
+    ],
+    "summary": "Defensive cybersecurity guidance for secure code review, threat modeling, vulnerability discovery, CVE-aware dependency checks, hardening, and fix-oriented white-hat analysis. Strictly defensive and remediation-focused.",
+    "file": "cybersecurity.md",
+    "use_when": [
+      "Use only when the user explicitly asks for security review, vulnerability assessment, hardening, threat modeling, CVE/dependency review, abuse resistance, authentication/authorization checks, secrets handling, exposed service review, or secure implementation.",
+      "Also use when the current code touches high-risk surfaces: auth, sessions, permissions, payments, file upload/download, deserialization, templates, SQL/ORM queries, command execution, SSRF-capable outbound requests, webhooks, cryptography, API keys, admin panels, multi-tenant data, network services, or sandboxing.",
+      "Do not use for ordinary implementation just because every app has security concerns. Keep output defensive: evidence, impact, remediation, safe tests, and no weaponized exploit guidance."
+    ]
+  }
+]
