@@ -3,7 +3,7 @@
 Local, privacy-first agentic coding workspace in Go. CodeDone breaks large development tasks into atomic serialized tickets, dispatches AI implementers one step at a time, and uses a Contre-Maître system to plan, supervise, review, and finalize work with lower token waste and higher reliability. Built to excel at very long tasks spanning multiple days.
 
 <p align="center">
-  <img src="https://codedone.app/cdn/codedone-preview-1.png" alt="CodeDone session workspace" width="900">
+  <img src="https://codedone.app/cdn/codedone-preview-1.png" alt="CodeDone overview" width="900">
 </p>
 
 ## What is CodeDone?
@@ -65,7 +65,7 @@ Before building, CodeDone can run in a planning/refinement mode where you discus
 Use it to clarify scope, refine requirements, validate assumptions, and shape the backlog before any implementation starts.
 
 <p align="center">
-  <img src="https://codedone.app/cdn/codedone-preview-2.png" alt="CodeDone planning and backlog" width="900">
+  <img src="https://codedone.app/cdn/codedone-preview-2.png" alt="CodeDone planning mode and backlog generation" width="900">
 </p>
 
 ### Guidance system
@@ -111,12 +111,16 @@ Sessions can be:
 - run across long workflows
 - used for multi-day implementation tasks
 
+<p align="center">
+  <img src="https://codedone.app/cdn/codedone-duringtask.png" alt="CodeDone during task execution with backlog tickets and live agent editing" width="900">
+</p>
+
 ### Desktop-first experience
 
 CodeDone is built as a desktop-first application using **Go + Wails**, with a focused CLI-like workflow and support for both **dark** and **light** themes.
 
 <p align="center">
-  <img src="https://codedone.app/cdn/codedone-preview-3.png" alt="CodeDone dark and light themes" width="900">
+  <img src="https://codedone.app/cdn/codedone-preview-3.png" alt="CodeDone interface with theme and product UI" width="900">
 </p>
 
 ## Why CodeDone?
@@ -135,3 +139,7 @@ It focuses on:
 - long-running autonomous project work
 
 CodeDone is for developers who want agents that can work on serious projects without turning the repository into an uncontrolled multi-agent mess.
+
+<p align="center">
+  <img src="https://codedone.app/cdn/codedone-taskcomplete.png" alt="CodeDone completed task with finalizer validation" width="900">
+</p>
