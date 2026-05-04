@@ -143,3 +143,54 @@ CodeDone is for developers who want agents that can work on serious projects wit
 <p align="center">
   <img src="https://codedone.app/cdn/codedone-taskcomplete.png?v=2" alt="CodeDone completed task with finalizer validation" width="900">
 </p>
+
+## Build
+
+CodeDone is a Wails desktop app built with Go and a web frontend.
+
+Install the required tooling first:
+
+- Go
+- Node.js / npm
+- Wails CLI
+
+Check your local setup:
+
+```bash
+wails doctor
+```
+
+Install frontend dependencies if needed:
+
+```bash
+npm install
+```
+
+Build the app for your current operating system:
+
+```bash
+wails build
+```
+
+The compiled app will be generated in:
+
+```text
+build/bin
+```
+
+For development mode with live reload:
+
+```bash
+wails dev
+```
+
+To build for another platform, use Wails cross-compilation support:
+
+```bash
+wails build -platform windows/amd64
+wails build -platform darwin/amd64
+wails build -platform darwin/arm64
+wails build -platform linux/amd64
+```
+
+Cross-compilation can require platform-specific dependencies, so for release builds it is usually safest to build directly on the target operating system.
