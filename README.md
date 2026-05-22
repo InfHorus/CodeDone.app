@@ -8,7 +8,7 @@ Local, privacy-first agentic coding workspace in Go. CodeDone breaks large devel
 
 ## What is CodeDone?
 
-CodeDone is an agentic coding workspace designed for large, long-running software tasks. Instead of launching multiple chaotic agents in parallel, CodeDone uses a serialized agent pipeline: the **Contre-Maître** plans the work, generates a structured backlog, dispatches one ticket at a time to an Implementer, reviews each result, and finally hands the completed session to a Finalizer.
+CodeDone is an AI agentic coding harness workspace designed for large, long-running software tasks. Instead of launching multiple chaotic agents in parallel, CodeDone uses a serialized agent pipeline: the **Contre-Maître** plans the work, generates a structured backlog, dispatches one ticket at a time to an Implementer, reviews each result, and finally hands the completed session to a Finalizer.
 
 The goal is simple: let users build, refactor, or modify large projects from a single prompt while keeping the process auditable, controlled, and efficient.
 
