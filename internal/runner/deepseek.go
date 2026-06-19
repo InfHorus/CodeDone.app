@@ -174,7 +174,7 @@ func (r *DeepSeekRunner) RunImplementer(ctx context.Context, req engine.Implemen
 				}
 				return engine.ImplementerRunResult{
 					Status:             engine.ReportFailed,
-					Summary:            fmt.Sprintf("DeepSeek returned tool calls for %s, but executing %s failed: %v", req.Ticket.ID, call.Function.Name, err),
+					Summary:            fmt.Sprintf("%s returned tool calls for %s, but executing %s failed: %v", r.model, req.Ticket.ID, call.Function.Name, err),
 					FilesChanged:       dedupeStrings(appliedFiles),
 					GitDiffRef:         "working-tree",
 					ToolCalls:          toolCalls,
@@ -182,7 +182,7 @@ func (r *DeepSeekRunner) RunImplementer(ctx context.Context, req engine.Implemen
 					ImportantDecisions: []string{"Provider response was received, but one tool call failed during execution."},
 					KnownRisks:         []string{"The ticket did not complete because tool execution failed."},
 					RemainingWork:      []string{"Retry the ticket with a corrected tool call."},
-					SuggestedNextStep:  "Inspect the saved raw DeepSeek response artifact and retry with corrected tool usage.",
+					SuggestedNextStep:  fmt.Sprintf("Inspect the saved raw %s response artifact and retry with corrected tool usage.", r.model),
 				}, nil
 			}
 			if done, args := parseCompleteToolCall(call); done {
@@ -212,13 +212,13 @@ func (r *DeepSeekRunner) RunImplementer(ctx context.Context, req engine.Implemen
 	if len(toolCalls) == 0 {
 		return engine.ImplementerRunResult{
 			Status:            engine.ReportFailed,
-			Summary:           fmt.Sprintf("DeepSeek returned no tool calls for %s. The implementer described work in prose but did not execute any file operation.", req.Ticket.ID),
+			Summary:           fmt.Sprintf("%s returned no tool calls for %s. The implementer described work in prose but did not execute any file operation.", r.model, req.Ticket.ID),
 			FilesChanged:      []string{},
 			GitDiffRef:        "working-tree",
 			ToolCalls:         []engine.ToolCall{},
 			KnownRisks:        []string{"No file operations were executed."},
 			RemainingWork:     []string{"Retry the ticket and require actual file tool calls."},
-			SuggestedNextStep: "Inspect the saved DeepSeek response and adjust the implementer instructions if prose-only output continues.",
+			SuggestedNextStep: fmt.Sprintf("Inspect the saved %s response and adjust the implementer instructions if prose-only output continues.", r.model),
 		}, nil
 	}
 	diffRef := "working-tree"
@@ -277,7 +277,7 @@ func (r *DeepSeekRunner) RunImplementer(ctx context.Context, req engine.Implemen
 	if len(filesChanged) == 0 {
 		return engine.ImplementerRunResult{
 			Status:             engine.ReportPartial,
-			Summary:            fmt.Sprintf("DeepSeek used tool calls for %s but did not produce any file changes.", req.Ticket.ID),
+			Summary:            fmt.Sprintf("%s used tool calls for %s but did not produce any file changes.", r.model, req.Ticket.ID),
 			FilesChanged:       []string{},
 			GitDiffRef:         diffRef,
 			GitDiffStat:        diffStat,
@@ -303,7 +303,7 @@ func (r *DeepSeekRunner) RunImplementer(ctx context.Context, req engine.Implemen
 		TestsRun:           nil,
 		ToolCalls:          toolCalls,
 		FilePreviews:       filePreviews,
-		ImportantDecisions: []string{"Changes were applied via DeepSeek tool calls rather than prose-only output."},
+		ImportantDecisions: []string{fmt.Sprintf("Changes were applied via %s tool calls rather than prose-only output.", r.model)},
 		KnownRisks:         []string{},
 		RemainingWork:      []string{},
 		SuggestedNextStep:  "Run engine-owned validation and proceed to CM review.",
