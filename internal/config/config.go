@@ -12,6 +12,7 @@ const (
 	ProviderAnthropic  Provider = "anthropic"
 	ProviderOpenAI     Provider = "openai"
 	ProviderOpenRouter Provider = "openrouter"
+	ProviderLucidQuery Provider = "lucidquery"
 )
 
 type Config struct {

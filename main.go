@@ -1389,6 +1389,18 @@ func buildImplementerRunner(cfg Config, gitSvc *gitops.Service, workDir string) 
 			model = "claude-sonnet-4-6"
 		}
 		return runner.NewAnthropicRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
+	case appconfig.ProviderLucidQuery:
+		if apiKey == "" {
+			return nil, providererror.New("LucidQuery", providererror.KindAuthentication, "LucidQuery API key is missing. Add it in Settings before starting a session.")
+		}
+		model := strings.TrimSpace(cfg.ImplementerModel)
+		if model == "" {
+			model = strings.TrimSpace(cfg.Model)
+		}
+		if model == "" {
+			model = "lucidquery-agi-01-swift"
+		}
+		return runner.NewLucidQueryRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
 	default:
 		return nil, fmt.Errorf("provider %q is not implemented yet", cfg.Provider)
 	}
@@ -1445,6 +1457,18 @@ func buildCMRunner(cfg Config, gitSvc *gitops.Service, workDir string) (engine.C
 			model = "claude-opus-4-7"
 		}
 		return cmrunner.NewAnthropicRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
+	case appconfig.ProviderLucidQuery:
+		if apiKey == "" {
+			return nil, providererror.New("LucidQuery", providererror.KindAuthentication, "LucidQuery API key is missing. Add it in Settings before starting a session.")
+		}
+		model := strings.TrimSpace(cfg.CMModel)
+		if model == "" {
+			model = strings.TrimSpace(cfg.Model)
+		}
+		if model == "" {
+			model = "lucidquery-agi-01-frontier"
+		}
+		return cmrunner.NewLucidQueryRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
 	default:
 		return nil, fmt.Errorf("provider %q is not implemented yet", cfg.Provider)
 	}
@@ -1481,6 +1505,9 @@ func resolveAPIKey(cfg Config) string {
 		return env
 	}
 	if env := strings.TrimSpace(os.Getenv("ANTHROPIC_API_KEY")); env != "" && cfg.Provider == appconfig.ProviderAnthropic {
+		return env
+	}
+	if env := strings.TrimSpace(os.Getenv("LUCIDQUERY_API_KEY")); env != "" && cfg.Provider == appconfig.ProviderLucidQuery {
 		return env
 	}
 	return ""

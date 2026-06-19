@@ -84,6 +84,7 @@ const PROVIDER_LABELS = {
     anthropic:  'Anthropic',
     openai:     'OpenAI',
     openrouter: 'OpenRouter',
+    lucidquery: 'LucidQuery',
 };
 
 const PROVIDER_DEFAULT_MODELS = {
@@ -102,6 +103,10 @@ const PROVIDER_DEFAULT_MODELS = {
     anthropic: {
         cmModel: 'claude-opus-4-7',
         implementerModel: 'claude-sonnet-4-6',
+    },
+    lucidquery: {
+        cmModel: 'lucidquery-agi-01-frontier',
+        implementerModel: 'lucidquery-agi-01-swift',
     },
 };
 
@@ -1782,6 +1787,8 @@ const MODEL_CTX = {
     'openai/gpt-5.1': '400k',
     'gpt-5.4': '400k',
     'gpt-5.4-mini': '400k',
+    'lucidquery-agi-01-swift': '300k',
+    'lucidquery-agi-01-frontier': '300k',
     'deepseek-chat': '128k', 'deepseek-v3': '128k', 'deepseek-reasoner': '128k',
     'claude-opus-4-7': '1M', 'claude-sonnet-4-6': '1M', 'claude-haiku-4-5': '200k',
     'claude-3-5-sonnet-20241022': '200k', 'claude-3-5-haiku-20241022': '200k',
