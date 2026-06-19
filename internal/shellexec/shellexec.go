@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"codedone/internal/engine"
+	"codedone/internal/sysproc"
 )
 
 // SystemInfo returns OS, shell, and current time info for the get_system_info tool.
@@ -82,6 +83,7 @@ func ExecuteShell(repoPath string, args ShellArgs) (string, engine.ToolCall, err
 		cmd = exec.CommandContext(ctx, "sh", "-c", command)
 	}
 	cmd.Dir = cwd
+	sysproc.Hide(cmd)
 
 	var buf bytes.Buffer
 	cmd.Stdout = &buf

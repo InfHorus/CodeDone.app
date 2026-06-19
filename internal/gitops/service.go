@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"codedone/internal/sysproc"
 )
 
 type Service struct {
@@ -181,6 +183,7 @@ func (s *Service) run(workDir string, args ...string) (string, error) {
 
 	cmd := exec.CommandContext(ctx, s.gitPath, args...)
 	cmd.Dir = workDir
+	sysproc.Hide(cmd)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer

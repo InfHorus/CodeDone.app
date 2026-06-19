@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"codedone/internal/engine"
+	"codedone/internal/sysproc"
 )
 
 type Service struct {
@@ -90,6 +91,7 @@ func (s *Service) runCommand(ctx context.Context, workDir string, args ...string
 
 	cmd := exec.CommandContext(cmdCtx, args[0], args[1:]...)
 	cmd.Dir = workDir
+	sysproc.Hide(cmd)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
