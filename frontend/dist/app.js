@@ -111,6 +111,16 @@ const PROVIDER_DEFAULT_MODELS = {
     },
 };
 
+// DeepSeek tolerates a very large max_completion_tokens; most other providers
+// (and local servers) reject one that exceeds the model's output limit, so they
+// get a conservative default that users can still raise.
+const DEEPSEEK_MAX_TOKENS = 384000;
+const SAFE_MAX_TOKENS = 32768;
+
+function providerMaxTokens(provider) {
+    return provider === 'deepseek' ? DEEPSEEK_MAX_TOKENS : SAFE_MAX_TOKENS;
+}
+
 function providerLabel(p) {
     return PROVIDER_LABELS[p] || p;
 }
@@ -1817,8 +1827,10 @@ function updateBaseUrlVisibility(provider) {
 }
 
 el.providerSelect.addEventListener('change', () => {
-    updateBaseUrlVisibility(el.providerSelect.value);
-    const defaults = PROVIDER_DEFAULT_MODELS[el.providerSelect.value];
+    const provider = el.providerSelect.value;
+    updateBaseUrlVisibility(provider);
+    $('maxTokens').value = providerMaxTokens(provider);
+    const defaults = PROVIDER_DEFAULT_MODELS[provider];
     if (!defaults) return;
     el.cmModelInput.value = defaults.cmModel;
     el.implementerModelInput.value = defaults.implementerModel;
