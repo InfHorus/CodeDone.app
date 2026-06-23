@@ -3,7 +3,7 @@
 Local, privacy-first agentic coding workspace in Go. CodeDone breaks large development tasks into atomic serialized tickets, dispatches AI implementers one step at a time, and uses a Contre-Maître system to plan, supervise, review, and finalize work with lower token waste and higher reliability. Built to excel at very long tasks spanning multiple days.
 
 <p align="center">
-  <img src="https://codedone.app/cdn/codedone-preview-1.png?v=3" alt="CodeDone overview" width="900">
+  <img src="https://codedone.app/cdn/codedone-preview-1.png?v=4" alt="CodeDone overview" width="900">
 </p>
 
 ## What is CodeDone?
