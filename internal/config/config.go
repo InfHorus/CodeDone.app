@@ -13,10 +13,12 @@ const (
 	ProviderOpenAI     Provider = "openai"
 	ProviderOpenRouter Provider = "openrouter"
 	ProviderLucidQuery Provider = "lucidquery"
+	ProviderLocal      Provider = "local"
 )
 
 type Config struct {
 	Provider          Provider          `json:"provider"`
+	BaseURL           string            `json:"baseURL"`
 	Model             string            `json:"model"`
 	CMModel           string            `json:"cmModel"`
 	ImplementerModel  string            `json:"implementerModel"`

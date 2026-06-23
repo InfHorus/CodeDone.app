@@ -17,6 +17,7 @@ import (
 	anthropicprovider "codedone/internal/provider/anthropic"
 	chatprovider "codedone/internal/provider/chat"
 	deepseekprovider "codedone/internal/provider/deepseek"
+	localprovider "codedone/internal/provider/local"
 	lucidqueryprovider "codedone/internal/provider/lucidquery"
 	openaiprovider "codedone/internal/provider/openai"
 	openrouterprovider "codedone/internal/provider/openrouter"
@@ -55,6 +56,10 @@ func NewAnthropicRunner(apiKey string, git *gitops.Service, workDir, model strin
 
 func NewLucidQueryRunner(apiKey string, git *gitops.Service, workDir, model string, maxTokens int, temperature float64, timeout time.Duration) *DeepSeekRunner {
 	return newDeepSeekCompatibleRunner(lucidqueryprovider.NewClient(apiKey, timeout), git, workDir, model, maxTokens, temperature)
+}
+
+func NewLocalRunner(baseURL, apiKey string, git *gitops.Service, workDir, model string, maxTokens int, temperature float64, timeout time.Duration) *DeepSeekRunner {
+	return newDeepSeekCompatibleRunner(localprovider.NewClient(baseURL, apiKey, timeout), git, workDir, model, maxTokens, temperature)
 }
 
 func newDeepSeekCompatibleRunner(client chatClient, git *gitops.Service, workDir, model string, maxTokens int, temperature float64) *DeepSeekRunner {

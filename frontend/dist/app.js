@@ -4,7 +4,7 @@
 
 const DEFAULT_CONFIG = {
     // Agents
-    provider: 'deepseek', model: 'deepseek-v4-flash', cmModel: 'deepseek-v4-pro', implementerModel: 'deepseek-v4-flash', apiKey: '', keys: {},
+    provider: 'deepseek', baseURL: '', model: 'deepseek-v4-flash', cmModel: 'deepseek-v4-pro', implementerModel: 'deepseek-v4-flash', apiKey: '', keys: {},
     cmCount: 1, maxAgents: 4, agentTimeout: 1200, maxTokens: 8192,
     enableTemperature: false, temperature: 0.3, enableFinalizer: true,
     // Git
@@ -85,6 +85,7 @@ const PROVIDER_LABELS = {
     openai:     'OpenAI',
     openrouter: 'OpenRouter',
     lucidquery: 'LucidQuery',
+    local:      'Local',
 };
 
 const PROVIDER_DEFAULT_MODELS = {
@@ -1810,7 +1811,13 @@ function updateModelBadge(input, badge) {
 
 el.cmModelInput.addEventListener('input', () => updateModelBadge(el.cmModelInput, $('cmCtxBadge')));
 el.implementerModelInput.addEventListener('input', () => updateModelBadge(el.implementerModelInput, $('implCtxBadge')));
+function updateBaseUrlVisibility(provider) {
+    const group = $('baseUrlGroup');
+    if (group) group.classList.toggle('hidden', provider !== 'local');
+}
+
 el.providerSelect.addEventListener('change', () => {
+    updateBaseUrlVisibility(el.providerSelect.value);
     const defaults = PROVIDER_DEFAULT_MODELS[el.providerSelect.value];
     if (!defaults) return;
     el.cmModelInput.value = defaults.cmModel;
@@ -1881,6 +1888,7 @@ function settingsFields() {
     return {
         // Agents
         provider:        $('providerSelect').value,
+        baseURL:         $('baseUrlInput').value.trim(),
         model:           implementerModel || cmModel,
         cmModel,
         implementerModel,
@@ -1909,6 +1917,8 @@ function settingsFields() {
 function applySettingsToForm(cfg) {
     // Agents
     $('providerSelect').value    = cfg.provider || 'deepseek';
+    $('baseUrlInput').value      = cfg.baseURL || '';
+    updateBaseUrlVisibility(cfg.provider || 'deepseek');
     const cmModel = cfg.cmModel || cfg.model || 'deepseek-v4-pro';
     const implementerModel = cfg.implementerModel || cfg.model || 'deepseek-v4-flash';
     el.cmModelInput.value        = cmModel;

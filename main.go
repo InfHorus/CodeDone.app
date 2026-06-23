@@ -1401,6 +1401,15 @@ func buildImplementerRunner(cfg Config, gitSvc *gitops.Service, workDir string) 
 			model = "lucidquery-agi-01-swift"
 		}
 		return runner.NewLucidQueryRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
+	case appconfig.ProviderLocal:
+		model := strings.TrimSpace(cfg.ImplementerModel)
+		if model == "" {
+			model = strings.TrimSpace(cfg.Model)
+		}
+		if model == "" {
+			return nil, providererror.New("Local", providererror.KindBadRequest, "Set the implementer model name your local server exposes (e.g. the model you loaded in vLLM or llama.cpp) in Settings before starting a session.")
+		}
+		return runner.NewLocalRunner(strings.TrimSpace(cfg.BaseURL), apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
 	default:
 		return nil, fmt.Errorf("provider %q is not implemented yet", cfg.Provider)
 	}
@@ -1469,6 +1478,15 @@ func buildCMRunner(cfg Config, gitSvc *gitops.Service, workDir string) (engine.C
 			model = "lucidquery-agi-01-frontier"
 		}
 		return cmrunner.NewLucidQueryRunner(apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
+	case appconfig.ProviderLocal:
+		model := strings.TrimSpace(cfg.CMModel)
+		if model == "" {
+			model = strings.TrimSpace(cfg.Model)
+		}
+		if model == "" {
+			return nil, providererror.New("Local", providererror.KindBadRequest, "Set the Contre-Maitre model name your local server exposes (e.g. the model you loaded in vLLM or llama.cpp) in Settings before starting a session.")
+		}
+		return cmrunner.NewLocalRunner(strings.TrimSpace(cfg.BaseURL), apiKey, gitSvc, workDir, model, cfg.MaxTokens, generationTemperature(cfg), agentTimeoutDuration(cfg)), nil
 	default:
 		return nil, fmt.Errorf("provider %q is not implemented yet", cfg.Provider)
 	}
@@ -1508,6 +1526,9 @@ func resolveAPIKey(cfg Config) string {
 		return env
 	}
 	if env := strings.TrimSpace(os.Getenv("LUCIDQUERY_API_KEY")); env != "" && cfg.Provider == appconfig.ProviderLucidQuery {
+		return env
+	}
+	if env := strings.TrimSpace(os.Getenv("LOCAL_API_KEY")); env != "" && cfg.Provider == appconfig.ProviderLocal {
 		return env
 	}
 	return ""

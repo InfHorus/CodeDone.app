@@ -2,6 +2,7 @@ export namespace config {
 	
 	export class Config {
 	    provider: string;
+	    baseURL: string;
 	    model: string;
 	    cmModel: string;
 	    implementerModel: string;
@@ -31,6 +32,7 @@ export namespace config {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.provider = source["provider"];
+	        this.baseURL = source["baseURL"];
 	        this.model = source["model"];
 	        this.cmModel = source["cmModel"];
 	        this.implementerModel = source["implementerModel"];

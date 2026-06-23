@@ -291,12 +291,20 @@
                                         <option value="openai">OpenAI</option>
                                         <option value="openrouter">OpenRouter</option>
                                         <option value="lucidquery">LucidQuery</option>
+                                        <option value="local">Local (vLLM / llama.cpp)</option>
                                     </select>
                                 </div>
                                 <div class="settings-group half">
                                     <label class="settings-label">API Key</label>
                                     <input class="settings-input" id="apiKeyInput" type="password" placeholder="sk-..." />
                                     <span class="settings-hint">Stored locally in the app config.</span>
+                                </div>
+                            </div>
+                            <div class="settings-row hidden" id="baseUrlGroup">
+                                <div class="settings-group">
+                                    <label class="settings-label">Base URL</label>
+                                    <input class="settings-input" id="baseUrlInput" type="text" placeholder="http://localhost:8000/v1" />
+                                    <span class="settings-hint">Your local server's OpenAI-compatible endpoint. vLLM: http://localhost:8000/v1 · llama.cpp: http://localhost:8080/v1 · Ollama: http://localhost:11434/v1 · API key optional.</span>
                                 </div>
                             </div>
                         </div>
